@@ -11,6 +11,10 @@
 - [ ] make sure `input_mapping` overrides can also remove mappings
 - [ ] move to ranges-v3 (eliminating some crispy helpers)
 
+### Good Image Protocol
+
+- [ ] Make sure Screen::Image does not need to know about the underlying image format. (only the frontend needs to know about the actual format in use, so it can *render* the pixmaps)
+
 ### Features to be added to 0.2.0 milestone
 
 - [ ] contour: provide `--mono` (or alike) CLI flag to "just" provide a QOpenGLWindow for best performance,
