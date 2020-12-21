@@ -9,9 +9,18 @@
 
 **IMPORTANT: THIS PROJECT IS IN ALPHA STAGE & ACTIVE DEVELOPMENT**
 
-`contour` is a modern terminal emulator, for everyday use. It is fully separating emulation from
-graphical representation for clear separation of concerns but also for special features to come
-before version 1.0 is released (headless terminal server with GUI & TUI frontends).
+## Project Vision
+
+`contour` is a clean-room virtual terminal emulator implementation. The main goals include:
+
+- best suited for power users
+- visually appealing to todays demands (complex Unicode, emojis, inline images)
+- versatile - should work with *most* applications (not necessarily all legacy applications)
+- clean API design (well seperation between backend and frontend)
+- well documented and well tested code, allowing easy code review and contribution.
+
+It shall also not be yet another overall boring terminal emulator that "just works", but it shall
+also be fun using.
 
 ## Features
 

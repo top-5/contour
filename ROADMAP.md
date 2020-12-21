@@ -41,6 +41,9 @@ Release 0.3.0
 * [ ] UI: show scrollbar
 * [ ] UI: show minimap (alternative to scrollbar)
 * [ ] VIEW: auto scroll when selecting beyond viewport
+* [ ] VIEW: smooth scrolling
+* [ ] Terminal: Vi-like mode for moving the cursor and selecting text for further actions
+- [ ] VT: performance optimizations using SIMD for decoding UTF8, VT text, Base64
 
 Release 0.x.0
 -------------
