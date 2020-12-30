@@ -1,4 +1,4 @@
-# Terminal apps using the mouse
+# TODO
 
 - [ ] writing text to stdout that triggers AutoWrap marks this line as auto-wrapped, so that
   word-selection will continue selecting on the enxt line.
@@ -9,6 +9,7 @@
 - [ ] move to profile: `images.*`
 - [ ] `input_mapping` becomes default, `profiles.NAME.overrides.input_mapping` is used for overrides/additions
 - [ ] make sure `input_mapping` overrides can also remove mappings
+- [ ] move to ranges-v3 (eliminating some crispy helpers)
 
 ### Features to be added to 0.2.0 milestone
 
