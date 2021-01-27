@@ -297,7 +297,7 @@ GlyphPositionList TextRenderer::shapeRun(unicode::run_segmenter::range const& _r
     if (crispy::logging_sink::for_debug().enabled())
     {
         auto msg = debuglog();
-#if 0
+#if 1
         msg.write("Shaping: {}\n", unicode::to_utf8(codepoints, count));
 #else
         msg.write("Shaping:");
@@ -395,6 +395,13 @@ optional<TextRenderer::DataRef> TextRenderer::getTextureInfo(GlyphId const& _id)
 
     auto const yMax = gridMetrics_.baseline + glyph.metrics.bearing.y;
     auto const yOverflow = gridMetrics_.cellSize.height - yMax;
+    if (yMax > gridMetrics_.cellSize.height)
+        debuglog().write("Glyph height {}+{}={} exceeds cell height {}.",
+                         glyph.metrics.bearing.y,
+                         glyph.metrics.bitmapSize.y,
+                         yMax,
+                         gridMetrics_.cellSize.height);
+
     if (yMax > gridMetrics_.cellSize.height)
     {
         assert(yOverflow < 0);

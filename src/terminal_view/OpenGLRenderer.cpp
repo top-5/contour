@@ -471,6 +471,7 @@ void OpenGLRenderer::renderRectangle(unsigned _x, unsigned _y, unsigned _width, 
     GLfloat const cg = _color[1];
     GLfloat const cb = _color[2];
     GLfloat const ca = _color[3];
+    debuglog().write("render {}:{}..{}x{}, #{:2X}{:2X}{:2X}/{:2X}", _x, _y, _width, _height, cr, cg, cb, ca);
 
     GLfloat const vertices[6 * 7] = {
         // first triangle
