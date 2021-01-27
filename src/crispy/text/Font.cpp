@@ -162,13 +162,10 @@ bool Font::load()
         return false;
     }
 
-    debuglog().write("FontLoader: loading font \"{}\" \"{}\" from \"{}\", baseline={}, height={}, size={}",
+    debuglog().write("FontLoader: loading font \"{}\" \"{}\" from \"{}\"",
                      familyName(),
                      styleName(),
-                     filePath(),
-                     baseline(),
-                     bitmapHeight(),
-                     fontSize_);
+                     filePath());
 
     if (FT_Error const ec = FT_Select_Charmap(face_, FT_ENCODING_UNICODE); ec != FT_Err_Ok)
         debuglog().write("FT_Select_Charmap failed. Ignoring; {}", freetypeErrorString(ec));
@@ -458,6 +455,12 @@ void Font::setFontSize(double _fontSize)
     }
 
     maxAdvance_ = computeMaxAdvance(face_);
+
+    debuglog().write("set font size to {} with baseline={}, height={}, path={}",
+                     fontSize_,
+                     baseline(),
+                     bitmapHeight(),
+                     filePath());
 }
 
 int Font::lineHeight() const noexcept

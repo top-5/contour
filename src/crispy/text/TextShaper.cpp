@@ -174,6 +174,20 @@ bool TextShaper::shape(int _size,
             cx += pos[i].x_advance >> 6;
     }
 
+#if 0
+    if (crispy::logging_sink::for_debug().enabled() && !crispy::any_of(_result.get(), glyphMissing))
+    {
+        auto logMessage = debuglog();
+        logMessage.write("Shaped codepoints:");
+        for (auto [i, codepoint] : crispy::indexed(crispy::span(_codepoints, _codepoints + _size)))
+        {
+            logMessage.write(" U+{:X}:{}",
+                    static_cast<unsigned>(codepoint),
+                    _result.get().at(i).glyphIndex);
+        }
+    }
+#endif
+
     return !crispy::any_of(_result.get(), glyphMissing);
 }
 
