@@ -20,6 +20,7 @@
 #include <crispy/algorithm.h>
 #include <crispy/logger.h>
 #include <crispy/times.h>
+#include <crispy/range.h>
 
 using std::array;
 using std::get;
@@ -296,7 +297,14 @@ GlyphPositionList TextRenderer::shapeRun(unicode::run_segmenter::range const& _r
     if (crispy::logging_sink::for_debug().enabled())
     {
         auto msg = debuglog();
+#if 0
         msg.write("Shaping: {}\n", unicode::to_utf8(codepoints, count));
+#else
+        msg.write("Shaping:");
+        for (char32_t const codepoint : crispy::range(codepoints, codepoints + count))
+            msg.write(" U+{:04X}", unsigned(codepoint));
+        msg.write("\n");
+#endif
         // A single shape run always uses the same font,
         // so it is sufficient to just print that.
         msg.write("via font: \"{}\"\n", gpos.at(0).font.get().filePath());

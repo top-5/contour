@@ -216,8 +216,6 @@ optional<Glyph> Font::loadGlyphByIndex(unsigned _glyphIndex, RenderMode _renderM
 
         if (missingGlyph)
             ec = FT_Load_Glyph(face_, missingGlyph, flags);
-        else
-            ec = FT_Err_Invalid_Glyph_Index;
 
         if (ec != FT_Err_Ok)
         {
@@ -401,7 +399,10 @@ optional<Glyph> Font::loadGlyphByIndex(unsigned _glyphIndex, RenderMode _renderM
 bool Font::selectSizeForWidth(int _width) // or call it: selectStrikeIndexForWidth(int _width))
 {
     assert(face_);
-    int best = 0, diff = std::numeric_limits<int>::max();
+    debuglog().write("Select size for width {} for font {}.", _width, filePath_);
+
+    int best = 0;
+    int diff = std::numeric_limits<int>::max();
     for (int i = 0; i < face_->num_fixed_sizes; ++i)
     {
         auto const width = face_->available_sizes[i].width;
@@ -415,11 +416,9 @@ bool Font::selectSizeForWidth(int _width) // or call it: selectStrikeIndexForWid
 
     strikeIndex_ = best;
 
-    if (face_->num_fixed_sizes > 1)
-        debuglog().write("set strike index to {} (total: {}) for font {}",
-                         best, face_->num_fixed_sizes, filePath_);
+    debuglog().write("set strike index {} (total: {}) for colored font {}.", strikeIndex_, face_->num_fixed_sizes, filePath_);
 
-    FT_Error const ec = FT_Select_Size(face_, best);
+    FT_Error const ec = FT_Select_Size(face_, strikeIndex_);
     if (ec != FT_Err_Ok)
         debuglog().write("Failed to FT_Select_Size: {}", freetypeErrorString(ec));
 
@@ -431,10 +430,7 @@ void Font::setFontSize(double _fontSize)
     assert(face_ != 0);
     if (FT_HAS_COLOR(face_))
     {
-        if (FT_Error const ec = FT_Select_Size(face_, strikeIndex_); ec != FT_Err_Ok)
-        {
-            debuglog().write("Failed to FT_Select_Size: {}", freetypeErrorString(ec));
-        }
+        selectSizeForWidth(int(_fontSize)); // TODO: should be font width (not height)
     }
     else
     {
