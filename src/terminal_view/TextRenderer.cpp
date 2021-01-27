@@ -372,6 +372,10 @@ optional<TextRenderer::DataRef> TextRenderer::getTextureInfo(GlyphId const& _id)
         return dataRef;
 
     Font& font = _id.font.get();
+
+    if (font.fontSize() == 0.0)
+        font.setFontSize(fonts_.regular.front().fontSize()); // TODO: find a better way
+
     auto theGlyphOpt = font.loadGlyphByIndex(_id.glyphIndex, fonts_.renderMode);
     if (!theGlyphOpt.has_value())
         return nullopt;
